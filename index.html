@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f6fb">
+  <title>우리 동네 대기질</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- 에어코리아 실시간 자료를 지역별 신호등과 측정소 카드로 보여줍니다. -->
+  <main class="app">
+    <header class="page-header">
+      <p class="eyebrow">오늘의 공기 상태</p>
+      <h1>우리 동네 대기질</h1>
+      <p class="intro">지역별 측정소의 미세먼지 정보를 확인해 보세요.</p>
+    </header>
+
+    <section class="summary-panel" aria-labelledby="summary-title">
+      <div class="summary-top">
+        <label for="region-select">지역 선택</label>
+        <select id="region-select" aria-label="시도 선택">
+          <option value="전국">전국</option>
+          <option value="서울">서울</option>
+          <option value="부산">부산</option>
+          <option value="대구">대구</option>
+          <option value="인천">인천</option>
+          <option value="광주">광주</option>
+          <option value="대전">대전</option>
+          <option value="울산">울산</option>
+          <option value="세종">세종</option>
+          <option value="경기">경기</option>
+          <option value="강원">강원</option>
+          <option value="충북">충북</option>
+          <option value="충남">충남</option>
+          <option value="전북">전북</option>
+          <option value="전남">전남</option>
+          <option value="경북">경북</option>
+          <option value="경남">경남</option>
+          <option value="제주">제주</option>
+        </select>
+      </div>
+      <div class="average">
+        <h2 id="summary-title">전국 평균 미세먼지</h2>
+        <div class="air-signal" aria-live="polite">
+          <span id="signal-emoji" class="signal-emoji" aria-hidden="true">⏳</span>
+          <span id="signal-label" class="signal-label">불러오는 중</span>
+        </div>
+        <p><span id="average-value" aria-live="polite">불러오는 중</span><span class="unit">㎍/㎥</span></p>
+        <span id="average-note" class="summary-note">측정소 자료를 불러오고 있습니다.</span>
+        <p id="health-advice" class="health-advice">측정 정보를 확인하고 있습니다.</p>
+      </div>
+    </section>
+
+    <section class="stations-section" aria-labelledby="stations-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">실시간 측정 정보</p>
+          <h2 id="stations-title">측정소별 대기질</h2>
+        </div>
+        <span id="station-count" class="station-count"></span>
+      </div>
+      <div id="status-message" class="status-message" role="status" aria-live="polite">정보를 불러오는 중입니다.</div>
+      <label class="search-control" for="station-search">
+        <span>측정소 검색</span>
+        <input id="station-search" type="search" placeholder="측정소 이름을 입력하세요" autocomplete="off">
+      </label>
+      <div id="station-list" class="station-grid"></div>
+    </section>
+    <section class="chart-section" aria-labelledby="chart-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">미세먼지 높은 순</p>
+          <h2 id="chart-title">측정소 상위 10곳</h2>
+        </div>
+      </div>
+      <div class="chart-panel">
+        <canvas id="station-chart" role="img" aria-label="미세먼지 수치가 높은 측정소 상위 10곳 그래프"></canvas>
+        <p id="chart-fallback" class="chart-fallback" hidden></p>
+      </div>
+    </section>
+    <footer>자료 출처: 한국환경공단 에어코리아</footer>
+  </main>
+</body>
+</html>
